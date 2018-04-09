@@ -1,73 +1,73 @@
-#1.²éÑ¯Student±íÖĞµÄËùÓĞ¼ÇÂ¼µÄSname¡¢SsexºÍClassÁĞ¡£
+#1.æŸ¥è¯¢Studentè¡¨ä¸­çš„æ‰€æœ‰è®°å½•çš„Snameã€Ssexå’ŒClassåˆ—ã€‚
 SELECT Sname,Ssex,Class
 FROM Student;
-#2.²éÑ¯½ÌÊ¦ËùÓĞµÄµ¥Î»¼´²»ÖØ¸´µÄDepartÁĞ¡£
+#2.æŸ¥è¯¢æ•™å¸ˆæ‰€æœ‰çš„å•ä½å³ä¸é‡å¤çš„Departåˆ—ã€‚
 SELECT DISTINCT Depart
 FROM Teachers;
-#3.²éÑ¯Student±íµÄËùÓĞ¼ÇÂ¼¡£
+#3.æŸ¥è¯¢Studentè¡¨çš„æ‰€æœ‰è®°å½•ã€‚
 SELECT *
 FROM Students;
-#4.²éÑ¯Score±íÖĞ³É¼¨ÔÚ60µ½80Ö®¼äµÄËùÓĞ¼ÇÂ¼¡£
+#4.æŸ¥è¯¢Scoreè¡¨ä¸­æˆç»©åœ¨60åˆ°80ä¹‹é—´çš„æ‰€æœ‰è®°å½•ã€‚
 SELECT *
 FROM Scores
 WHERE Degree BETWEEN 60 AND 80;
-#5.²éÑ¯Score±íÖĞ³É¼¨Îª85£¬86»ò88µÄ¼ÇÂ¼¡£
+#5.æŸ¥è¯¢Scoreè¡¨ä¸­æˆç»©ä¸º85ï¼Œ86æˆ–88çš„è®°å½•ã€‚
 SELECT *
 FROM Scores
 WHERE Degree IN (85,86,88);
-#6.²éÑ¯Student±íÖĞ¡°95031¡±°à»òĞÔ±ğÎª¡°Å®¡±µÄÍ¬Ñ§¼ÇÂ¼¡£
+#6.æŸ¥è¯¢Studentè¡¨ä¸­â€œ95031â€ç­æˆ–æ€§åˆ«ä¸ºâ€œå¥³â€çš„åŒå­¦è®°å½•ã€‚
 SELECT *
 FROM Students
-WHERE Class='95031' OR Ssex='Å®';
-#7.ÒÔClass½µĞò²éÑ¯Student±íµÄËùÓĞ¼ÇÂ¼¡£
+WHERE Class='95031' OR Ssex='å¥³';
+#7.ä»¥Classé™åºæŸ¥è¯¢Studentè¡¨çš„æ‰€æœ‰è®°å½•ã€‚
 SELECT *
 FROM Students
 ORDER BY Class DESC;
-#8.ÒÔCnoÉıĞò¡¢Degree½µĞò²éÑ¯Score±íµÄËùÓĞ¼ÇÂ¼¡£
+#8.ä»¥Cnoå‡åºã€Degreeé™åºæŸ¥è¯¢Scoreè¡¨çš„æ‰€æœ‰è®°å½•ã€‚
 SELECT *
 FROM Scores
-ORDER BY Cno,Degree DESC;
-#9.²éÑ¯¡°95031¡±°àµÄÑ§ÉúÈËÊı¡£
+ORDER BY Cno ASC,Degree DESC;
+#9.æŸ¥è¯¢â€œ95031â€ç­çš„å­¦ç”Ÿäººæ•°ã€‚
 SELECT COUNT(1) AS StuNum
 FROM Students
 WHERE Class='95031';
-#10.²éÑ¯Score±íÖĞµÄ×î¸ß·ÖµÄÑ§ÉúÑ§ºÅºÍ¿Î³ÌºÅ¡£
+#10.æŸ¥è¯¢Scoreè¡¨ä¸­çš„æœ€é«˜åˆ†çš„å­¦ç”Ÿå­¦å·å’Œè¯¾ç¨‹å·ã€‚
 SELECT Sno,Cno
 FROM Scores
 ORDER BY Degree DESC
 LIMIT 1;
-#11.²éÑ¯¡®3-105¡¯ºÅ¿Î³ÌµÄÆ½¾ù·Ö¡£
+#11.æŸ¥è¯¢â€˜3-105â€™å·è¯¾ç¨‹çš„å¹³å‡åˆ†ã€‚
 SELECT AVG(Degree)
 FROM Scores
 WHERE Cno='3-105';
-#12.²éÑ¯Score±íÖĞÖÁÉÙÓĞ5ÃûÑ§ÉúÑ¡ĞŞµÄ²¢ÒÔ3¿ªÍ·µÄ¿Î³ÌµÄÆ½¾ù·ÖÊı¡£
+#12.æŸ¥è¯¢Scoreè¡¨ä¸­è‡³å°‘æœ‰5åå­¦ç”Ÿé€‰ä¿®çš„å¹¶ä»¥3å¼€å¤´çš„è¯¾ç¨‹çš„å¹³å‡åˆ†æ•°ã€‚
 SELECT Cno,AVG(Degree)
 FROM Scores
 WHERE Cno LIKE '3%'
 GROUP BY Cno
 HAVING COUNT(Sno) >= 5;
-#13.²éÑ¯×îµÍ·Ö´óÓÚ70£¬×î¸ß·ÖĞ¡ÓÚ90µÄSnoÁĞ¡£
+#13.æŸ¥è¯¢æœ€ä½åˆ†å¤§äº70ï¼Œæœ€é«˜åˆ†å°äº90çš„Snoåˆ—ã€‚
 SELECT Sno
 FROM Scores
 GROUP BY Sno
 HAVING MAX(Degree)<90 AND MIN(Degree)>70;
-#14.²éÑ¯ËùÓĞÑ§ÉúµÄSname¡¢CnoºÍDegreeÁĞ¡£
+#14.æŸ¥è¯¢æ‰€æœ‰å­¦ç”Ÿçš„Snameã€Cnoå’ŒDegreeåˆ—ã€‚
 SELECT Sname,Cno,Degree
 FROM Students INNER JOIN Scores
     ON(Students.Sno=Scores.Sno)
 ORDER BY Sname;
-#15.²éÑ¯ËùÓĞÑ§ÉúµÄSno¡¢CnameºÍDegreeÁĞ¡£
+#15.æŸ¥è¯¢æ‰€æœ‰å­¦ç”Ÿçš„Snoã€Cnameå’ŒDegreeåˆ—ã€‚
 SELECT Sno,Cname,Degree
 FROM Scores INNER JOIN Courses
     ON(Scores.Cno=Courses.Cno)
 ORDER BY Sno;
-#16.²éÑ¯ËùÓĞÑ§ÉúµÄSname¡¢CnameºÍDegreeÁĞ¡£
+#16.æŸ¥è¯¢æ‰€æœ‰å­¦ç”Ÿçš„Snameã€Cnameå’ŒDegreeåˆ—ã€‚
 SELECT Sname,Cname,Degree
 FROM Students INNER JOIN Scores
     ON(Students.Sno=Scores.Sno) INNER JOIN Courses
     ON(Scores.Cno=Courses.Cno)
 ORDER BY Sname;
-#17.²éÑ¯¡°95033¡±°àËùÑ¡¿Î³ÌµÄÆ½¾ù·Ö¡£
+#17.æŸ¥è¯¢â€œ95033â€ç­æ‰€é€‰è¯¾ç¨‹çš„å¹³å‡åˆ†ã€‚
 SELECT Cname,AVG(Degree)
 FROM Students INNER JOIN Scores
     ON(Students.Sno=Scores.Sno) INNER JOIN Courses
@@ -75,70 +75,70 @@ FROM Students INNER JOIN Scores
 WHERE Class='95033'
 GROUP BY Courses.Cno
 ORDER BY Cname;
-#18.¼ÙÉèÊ¹ÓÃÈçÏÂÃüÁî½¨Á¢ÁËÒ»¸ögrade±í(ÂÔ)ÏÖ²éÑ¯ËùÓĞÍ¬Ñ§µÄSno¡¢CnoºÍrankÁĞ¡£
+#18.å‡è®¾ä½¿ç”¨å¦‚ä¸‹å‘½ä»¤å»ºç«‹äº†ä¸€ä¸ªgradeè¡¨(ç•¥)ç°æŸ¥è¯¢æ‰€æœ‰åŒå­¦çš„Snoã€Cnoå’Œrankåˆ—ã€‚
 SELECT Sno,Cno,rank
 FROM Scores INNER JOIN grade
     ON(Scores.Degree>=grade.low AND Scores.Degree<=grade.upp)
 ORDER BY Sno;
-#19.²éÑ¯Ñ¡ĞŞ¡°3-105¡±¿Î³ÌµÄ³É¼¨¸ßÓÚ¡°109¡±ºÅÍ¬Ñ§³É¼¨µÄËùÓĞÍ¬Ñ§µÄ¼ÇÂ¼¡£
+#19.æŸ¥è¯¢é€‰ä¿®â€œ3-105â€è¯¾ç¨‹çš„æˆç»©é«˜äºâ€œ109â€å·åŒå­¦æˆç»©çš„æ‰€æœ‰åŒå­¦çš„è®°å½•ã€‚
 SELECT s1.Sno,s1.Degree
 FROM Scores AS s1 INNER JOIN Scores AS s2
     ON(s1.Cno=s2.Cno AND s1.Degree>s2.Degree)
 WHERE s1.Cno='3-105' AND s2.Sno='109'
 ORDER BY s1.Sno;
-#20.²éÑ¯scoreÖĞÑ¡Ñ§Ò»ÃÅÒÔÉÏ¿Î³ÌµÄÍ¬Ñ§ÖĞ·ÖÊıÎª·Ç×î¸ß·Ö³É¼¨µÄ¼ÇÂ¼¡£
+#20.æŸ¥è¯¢scoreä¸­é€‰å­¦ä¸€é—¨ä»¥ä¸Šè¯¾ç¨‹çš„åŒå­¦ä¸­åˆ†æ•°ä¸ºéæœ€é«˜åˆ†æˆç»©çš„è®°å½•ã€‚
 SELECT *
 FROM Scores
 GROUP BY Sno
 HAVING COUNT(cno)>1 AND Degree!=MAX(Degree);
-#21.²éÑ¯³É¼¨¸ßÓÚÑ§ºÅÎª¡°109¡±¡¢¿Î³ÌºÅÎª¡°3-105¡±µÄ³É¼¨µÄËùÓĞ¼ÇÂ¼¡£
+#21.æŸ¥è¯¢æˆç»©é«˜äºå­¦å·ä¸ºâ€œ109â€ã€è¯¾ç¨‹å·ä¸ºâ€œ3-105â€çš„æˆç»©çš„æ‰€æœ‰è®°å½•ã€‚
 SELECT s1.Sno,s1.Degree
 FROM Scores AS s1 INNER JOIN Scores AS s2
     ON(s1.Cno=s2.Cno AND s1.Degree>s2.Degree)
 WHERE s1.Cno='3-105' AND s2.Sno='109'
 ORDER BY s1.Sno;
-#22.²éÑ¯ºÍÑ§ºÅÎª108µÄÍ¬Ñ§Í¬Äê³öÉúµÄËùÓĞÑ§ÉúµÄSno¡¢SnameºÍSbirthdayÁĞ¡£
+#22.æŸ¥è¯¢å’Œå­¦å·ä¸º108çš„åŒå­¦åŒå¹´å‡ºç”Ÿçš„æ‰€æœ‰å­¦ç”Ÿçš„Snoã€Snameå’ŒSbirthdayåˆ—ã€‚
 SELECT s1.Sno,s1.Sname,s1.Sbirthday
 FROM Students AS s1 INNER JOIN Students AS s2
     ON(YEAR(s1.Sbirthday)=YEAR(s2.Sbirthday))
 WHERE s2.Sno='108';
-#23.²éÑ¯¡°ÕÅĞñ¡°½ÌÊ¦ÈÎ¿ÎµÄÑ§Éú³É¼¨¡£
+#23.æŸ¥è¯¢â€œå¼ æ—­â€œæ•™å¸ˆä»»è¯¾çš„å­¦ç”Ÿæˆç»©ã€‚
 SELECT Sno,Degree
 FROM Scores INNER JOIN Courses
     ON(Scores.Cno=Courses.Cno) INNER JOIN Teachers
     ON(Courses.Tno=Teachers.Tno)
-WHERE Teachers.Tname='ÕÅĞñ';
-#24.²éÑ¯Ñ¡ĞŞÄ³¿Î³ÌµÄÍ¬Ñ§ÈËÊı¶àÓÚ5ÈËµÄ½ÌÊ¦ĞÕÃû¡£
+WHERE Teachers.Tname='å¼ æ—­';
+#24.æŸ¥è¯¢é€‰ä¿®æŸè¯¾ç¨‹çš„åŒå­¦äººæ•°å¤šäº5äººçš„æ•™å¸ˆå§“åã€‚
 SELECT DISTINCT Tname
 FROM Scores INNER JOIN Courses
     ON(Scores.Cno=Courses.Cno) INNER JOIN Teachers
     ON(Courses.Tno=Teachers.Tno)
 WHERE Courses.Cno IN(SELECT Cno FROM Scores GROUP BY(Cno) HAVING COUNT(Sno)>5);
-#25.²éÑ¯95033°àºÍ95031°àÈ«ÌåÑ§ÉúµÄ¼ÇÂ¼¡£
+#25.æŸ¥è¯¢95033ç­å’Œ95031ç­å…¨ä½“å­¦ç”Ÿçš„è®°å½•ã€‚
 SELECT *
 FROM Students
 WHERE Class IN ('95033','95031')
 ORDER BY Class;
-#26.²éÑ¯´æÔÚÓĞ85·ÖÒÔÉÏ³É¼¨µÄ¿Î³ÌCno.
+#26.æŸ¥è¯¢å­˜åœ¨æœ‰85åˆ†ä»¥ä¸Šæˆç»©çš„è¯¾ç¨‹Cno.
 SELECT DISTINCT Cno
 FROM Scores
 WHERE Degree>85;
-#27.²éÑ¯³ö¡°¼ÆËã»úÏµ¡°½ÌÊ¦Ëù½Ì¿Î³ÌµÄ³É¼¨±í¡£
+#27.æŸ¥è¯¢å‡ºâ€œè®¡ç®—æœºç³»â€œæ•™å¸ˆæ‰€æ•™è¯¾ç¨‹çš„æˆç»©è¡¨ã€‚
 SELECT Tname,Cname,SName,Degree
 FROM Teachers INNER JOIN Courses
     ON(Teachers.Tno=Courses.Tno) INNER JOIN Scores
     ON(Courses.Cno=Scores.Cno) INNER JOIN Students
     ON(Scores.Sno=Students.Sno)
-WHERE Teachers.Depart='¼ÆËã»úÏµ'
+WHERE Teachers.Depart='è®¡ç®—æœºç³»'
 ORDER BY Tname,Cname,Degree DESC;
-#28.²éÑ¯¡°¼ÆËã»úÏµ¡±Óë¡°µç×Ó¹¤³ÌÏµ¡°²»Í¬Ö°³ÆµÄ½ÌÊ¦µÄTnameºÍProf¡£
+#28.æŸ¥è¯¢â€œè®¡ç®—æœºç³»â€ä¸â€œç”µå­å·¥ç¨‹ç³»â€œä¸åŒèŒç§°çš„æ•™å¸ˆçš„Tnameå’ŒProfã€‚
 SELECT Tname,Prof
 FROM Teachers
-WHERE Depart='¼ÆËã»úÏµ' AND Prof NOT IN(
+WHERE Depart='è®¡ç®—æœºç³»' AND Prof NOT IN(
   SELECT DISTINCT Prof
   FROM Teachers
-  WHERE Depart='µç×Ó¹¤³ÌÏµ');
-#29.²éÑ¯Ñ¡ĞŞ±àºÅÎª¡°3-105¡°¿Î³ÌÇÒ³É¼¨ÖÁÉÙ¸ßÓÚÈÎÒâÑ¡ĞŞ±àºÅÎª¡°3-245¡±µÄÍ¬Ñ§µÄ³É¼¨µÄCno¡¢SnoºÍDegree,²¢°´Degree´Ó¸ßµ½µÍ´ÎĞòÅÅĞò¡£
+  WHERE Depart='ç”µå­å·¥ç¨‹ç³»');
+#29.æŸ¥è¯¢é€‰ä¿®ç¼–å·ä¸ºâ€œ3-105â€œè¯¾ç¨‹ä¸”æˆç»©è‡³å°‘é«˜äºä»»æ„é€‰ä¿®ç¼–å·ä¸ºâ€œ3-245â€çš„åŒå­¦çš„æˆç»©çš„Cnoã€Snoå’ŒDegree,å¹¶æŒ‰Degreeä»é«˜åˆ°ä½æ¬¡åºæ’åºã€‚
 SELECT Cno,Sno,Degree
 FROM Scores
 WHERE Cno='3-105' AND Degree > ANY(
@@ -146,7 +146,7 @@ WHERE Cno='3-105' AND Degree > ANY(
   FROM Scores
   WHERE Cno='3-245')
 ORDER BY Degree DESC;
-#30.²éÑ¯Ñ¡ĞŞ±àºÅÎª¡°3-105¡±ÇÒ³É¼¨¸ßÓÚËùÓĞÑ¡ĞŞ±àºÅÎª¡°3-245¡±¿Î³ÌµÄÍ¬Ñ§µÄCno¡¢SnoºÍDegree.
+#30.æŸ¥è¯¢é€‰ä¿®ç¼–å·ä¸ºâ€œ3-105â€ä¸”æˆç»©é«˜äºæ‰€æœ‰é€‰ä¿®ç¼–å·ä¸ºâ€œ3-245â€è¯¾ç¨‹çš„åŒå­¦çš„Cnoã€Snoå’ŒDegree.
 SELECT Cno,Sno,Degree
 FROM Scores
 WHERE Cno='3-105' AND Degree > ALL(
@@ -154,89 +154,89 @@ WHERE Cno='3-105' AND Degree > ALL(
   FROM Scores
   WHERE Cno='3-245')
 ORDER BY Degree DESC;
-#31.²éÑ¯ËùÓĞ½ÌÊ¦ºÍÍ¬Ñ§µÄname¡¢sexºÍbirthday.
+#31.æŸ¥è¯¢æ‰€æœ‰æ•™å¸ˆå’ŒåŒå­¦çš„nameã€sexå’Œbirthday.
 SELECT Sname,Ssex,Sbirthday
 FROM Students
 UNION
 SELECT Tname,Tsex,Tbirthday
 FROM Teachers;
-#32.²éÑ¯ËùÓĞ¡°Å®¡±½ÌÊ¦ºÍ¡°Å®¡±Í¬Ñ§µÄname¡¢sexºÍbirthday.
+#32.æŸ¥è¯¢æ‰€æœ‰â€œå¥³â€æ•™å¸ˆå’Œâ€œå¥³â€åŒå­¦çš„nameã€sexå’Œbirthday.
 SELECT Sname,Ssex,Sbirthday
 FROM Students
-WHERE Ssex='Å®'
+WHERE Ssex='å¥³'
 UNION
 SELECT Tname,Tsex,Tbirthday
 FROM Teachers
-WHERE Tsex='Å®';
-#33.²éÑ¯³É¼¨±È¸Ã¿Î³ÌÆ½¾ù³É¼¨µÍµÄÍ¬Ñ§µÄ³É¼¨±í¡£
+WHERE Tsex='å¥³';
+#33.æŸ¥è¯¢æˆç»©æ¯”è¯¥è¯¾ç¨‹å¹³å‡æˆç»©ä½çš„åŒå­¦çš„æˆç»©è¡¨ã€‚
 SELECT s1.*
 FROM Scores AS s1 INNER JOIN (
                                SELECT Cno,AVG(Degree) AS aDegree
                                FROM Scores
                                GROUP BY Cno) s2
     ON(s1.Cno=s2.Cno AND s1.Degree<s2.aDegree);
-#34.²éÑ¯ËùÓĞÈÎ¿Î½ÌÊ¦µÄTnameºÍDepart.
+#34.æŸ¥è¯¢æ‰€æœ‰ä»»è¯¾æ•™å¸ˆçš„Tnameå’ŒDepart.
 SELECT Tname,Depart
 FROM Teachers
 WHERE Tno IN(
   SELECT Tno
   FROM Courses
 );
-#35.²éÑ¯ËùÓĞÎ´½²¿ÎµÄ½ÌÊ¦µÄTnameºÍDepart.
+#35.æŸ¥è¯¢æ‰€æœ‰æœªè®²è¯¾çš„æ•™å¸ˆçš„Tnameå’ŒDepart.
 SELECT Tname,Depart
 FROM Teachers
 WHERE Tno NOT IN(
   SELECT Tno
   FROM Courses
 );
-#36.²éÑ¯ÖÁÉÙÓĞ2ÃûÄĞÉúµÄ°àºÅ¡£
+#36.æŸ¥è¯¢è‡³å°‘æœ‰2åç”·ç”Ÿçš„ç­å·ã€‚
 SELECT Class,COUNT(1) AS boyCount
 FROM Students
-WHERE Ssex='ÄĞ'
+WHERE Ssex='ç”·'
 GROUP BY Class
 HAVING boyCount>=2;
-#37.²éÑ¯Student±íÖĞ²»ĞÕ¡°Íõ¡±µÄÍ¬Ñ§¼ÇÂ¼¡£
+#37.æŸ¥è¯¢Studentè¡¨ä¸­ä¸å§“â€œç‹â€çš„åŒå­¦è®°å½•ã€‚
 SELECT *
 FROM Students
-WHERE Sname NOT LIKE 'Íõ%';
-#38.²éÑ¯Student±íÖĞÃ¿¸öÑ§ÉúµÄĞÕÃûºÍÄêÁä¡£
+WHERE Sname NOT LIKE 'ç‹%';
+#38.æŸ¥è¯¢Studentè¡¨ä¸­æ¯ä¸ªå­¦ç”Ÿçš„å§“åå’Œå¹´é¾„ã€‚
 SELECT Sname,YEAR(NOW())-YEAR(Sbirthday) AS Sage
 FROM Students;
-#39.²éÑ¯Student±íÖĞ×î´óºÍ×îĞ¡µÄSbirthdayÈÕÆÚÖµ¡£
+#39.æŸ¥è¯¢Studentè¡¨ä¸­æœ€å¤§å’Œæœ€å°çš„Sbirthdayæ—¥æœŸå€¼ã€‚
 SELECT MIN(Sbirthday),MAX(Sbirthday)
 FROM Students;
-#40.ÒÔ°àºÅºÍÄêÁä´Ó´óµ½Ğ¡µÄË³Ğò²éÑ¯Student±íÖĞµÄÈ«²¿¼ÇÂ¼¡£
+#40.ä»¥ç­å·å’Œå¹´é¾„ä»å¤§åˆ°å°çš„é¡ºåºæŸ¥è¯¢Studentè¡¨ä¸­çš„å…¨éƒ¨è®°å½•ã€‚
 SELECT *
 FROM Students
 ORDER BY Class DESC,Sbirthday ASC;
-#41.²éÑ¯¡°ÄĞ¡±½ÌÊ¦¼°ÆäËùÉÏµÄ¿Î³Ì¡£
+#41.æŸ¥è¯¢â€œç”·â€æ•™å¸ˆåŠå…¶æ‰€ä¸Šçš„è¯¾ç¨‹ã€‚
 SELECT Teachers.Tname,Courses.Cname
 FROM Teachers INNER JOIN Courses
     ON(Teachers.Tno=Courses.Tno)
-WHERE Teachers.Tsex='ÄĞ';
-#42.²éÑ¯×î¸ß·ÖÍ¬Ñ§µÄSno¡¢CnoºÍDegreeÁĞ¡£
+WHERE Teachers.Tsex='ç”·';
+#42.æŸ¥è¯¢æœ€é«˜åˆ†åŒå­¦çš„Snoã€Cnoå’ŒDegreeåˆ—ã€‚
 SELECT *
 FROM Scores
 GROUP BY Cno
 HAVING Degree=Max(Degree);
-#43.²éÑ¯ºÍ¡°Àî¾ü¡±Í¬ĞÔ±ğµÄËùÓĞÍ¬Ñ§µÄSname.
+#43.æŸ¥è¯¢å’Œâ€œæå†›â€åŒæ€§åˆ«çš„æ‰€æœ‰åŒå­¦çš„Sname.
 SELECT s1.Sname
 FROM Students AS s1 INNER JOIN Students AS s2
     ON(s1.Ssex=s2.Ssex)
-WHERE s2.Sname='Àî¾ü';
-#44.²éÑ¯ºÍ¡°Àî¾ü¡±Í¬ĞÔ±ğ²¢Í¬°àµÄÍ¬Ñ§Sname.
+WHERE s2.Sname='æå†›';
+#44.æŸ¥è¯¢å’Œâ€œæå†›â€åŒæ€§åˆ«å¹¶åŒç­çš„åŒå­¦Sname.
 SELECT s1.Sname
 FROM Students AS s1 INNER JOIN Students AS s2
     ON(s1.Ssex=s2.Ssex AND s1.Class=s2.Class)
-WHERE s2.Sname='Àî¾ü';
-#45.²éÑ¯ËùÓĞÑ¡ĞŞ¡°¼ÆËã»úµ¼ÂÛ¡±¿Î³ÌµÄ¡°ÄĞ¡±Í¬Ñ§µÄ³É¼¨±í
+WHERE s2.Sname='æå†›';
+#45.æŸ¥è¯¢æ‰€æœ‰é€‰ä¿®â€œè®¡ç®—æœºå¯¼è®ºâ€è¯¾ç¨‹çš„â€œç”·â€åŒå­¦çš„æˆç»©è¡¨
 SELECT *
 FROM Scores
 WHERE Sno IN (
   SELECT Sno
   FROM Students
-  WHERE Ssex='ÄĞ') AND
+  WHERE Ssex='ç”·') AND
       Cno IN (
         SELECT Cno
         FROM Courses
-        WHERE Cname='¼ÆËã»úµ¼ÂÛ');
+        WHERE Cname='è®¡ç®—æœºå¯¼è®º');
