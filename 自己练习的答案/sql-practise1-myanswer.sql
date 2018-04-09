@@ -71,23 +71,33 @@ SELECT scores.* FROM scores LEFT JOIN courses on scores.cno = courses.cno LEFT J
 SELECT teachers.tname FROM teachers WHERE (SELECT count(students.sno) FROM students LEFT JOIN scores on students.sno = scores.sno
   LEFT JOIN courses on scores.cno = courses.cno WHERE courses.tno = teachers.tno) >5;
   #采用HAVING过滤组
-  SELECT teachers.tname FROM teachers LEFT JOIN students on te
+  SELECT teachers.tname FROM teachers LEFT JOIN courses on teachers.tno = courses.tno
+    LEFT JOIN scores on scores.cno = courses.cno GROUP BY scores.cno HAVING count(scores.sno)>5;
 #25、查询95033班和95031班全体学生的记录。
 SELECT * FROM students WHERE class = '95033' or '95031';
 #26、查询存在有85分以上成绩的课程Cno.
 SELECT courses.cno from courses WHERE (SELECT max(scores.degree) FROM scores WHERE scores.cno = courses.cno)>85;
+  #参考答案写的比我好
 #27、查询出“计算机系“教师所教课程的成绩表。
 SELECT scores.* FROM scores LEFT JOIN courses on scores.cno = courses.cno LEFT JOIN teachers on courses.tno = teachers.tno WHERE teachers.depart = '计算机系';
 #28、查询“计算机系”与“电子工程系“不同职称的教师的Tname和Prof。
 (SELECT  t1.tname,t1.prof FROM teachers t1 where t1.depart = '计算机系' and  not exists(SELECT prof FROM teachers t2 WHERE t2.depart = '电子工程系' and t2.prof = t1.prof))
   UNION
 (SELECT  t1.tname,t1.prof FROM teachers t1 where t1.depart = '电子工程系' and  not exists(SELECT prof FROM teachers t2 WHERE t2.depart = '计算机系' and t2.prof = t1.prof));
+  #采用not in比较好
+select tname,prof FROM teachers WHERE depart = '计算机系' AND prof not in (SELECT prof FROM teachers WHERE depart = '电子工程系');
 #29、查询选修编号为“3-105“课程且成绩至少高于选修编号为“3-245”的同学的Cno、Sno和Degree,并按Degree从高到低次序排序。
 SELECT sc1.cno,s1.sno,sc1.degree FROM students s1,scores sc1 WHERE s1.sno = sc1.sno AND sc1.cno = '3-105' AND sc1.degree>
         ANY(SELECT sc2.degree FROM students s2,scores sc2 WHERE s2.sno = sc2.sno AND sc2.cno = '3-245') ORDER BY degree desc;
+  #不需要连接student
+SELECT cno,sno,degree FROM scores WHERE  cno = '3-105' AND degree>
+   ANY(SELECT degree FROM scores WHERE  cno = '3-245') ORDER BY degree desc;
 #30、查询选修编号为“3-105”且成绩高于选修编号为“3-245”课程的同学的Cno、Sno和Degree.
 SELECT sc1.cno,s1.sno,sc1.degree FROM students s1,scores sc1 WHERE s1.sno = sc1.sno AND sc1.cno = '3-105' AND sc1.degree>
         ALL(SELECT sc2.degree FROM students s2,scores sc2 WHERE s2.sno = sc2.sno AND sc2.cno = '3-245');
+  #不需要连接student
+SELECT cno,sno,degree FROM scores WHERE  cno = '3-105' AND degree>
+   ALL(SELECT degree FROM scores WHERE  cno = '3-245') ORDER BY degree desc;
 #31、查询所有教师和同学的name、sex和birthday.
 (SELECT students.sname as name,students.ssex as sex,students.sbirthday as birttday FROM  students)
   UNION (SELECT teachers.tname as name,teachers.tsex as sex,teachers.tbirthday as birthday FROM teachers);
@@ -102,6 +112,8 @@ SELECT teachers.tname,teachers.depart FROM teachers INNER JOIN courses on teache
 SELECT teachers.tname,teachers.depart FROM teachers WHERE teachers.tno not IN (SELECT DISTINCT tno from courses);
 #36、查询至少有2名男生的班号。
 select s1.class FROM students s1 WHERE (SELECT count(*) from students s2 where s2.ssex = '男' and s2.class = s1.class) GROUP BY s1.class;
+  #改用HAVING
+select class FROM students where  ssex = '男' GROUP BY class HAVING count(sno)>1;
 #37、查询Student表中不姓“王”的同学记录。
 SELECT * FROM students WHERE sname  not like '王%';
 #38、查询Student表中每个学生的姓名和年龄。
@@ -114,10 +126,16 @@ SELECT * FROM students ORDER BY class DESC ,sbirthday ASC;
 SELECT teachers.*,courses.cname FROM teachers INNER JOIN courses ON courses.tno = teachers.tno and teachers.tsex = '男';
 #42、查询最高分同学的Sno、Cno和Degree列。
 SELECT sno,cno,max(degree) as degree FROM scores;
+  #改用HAVING
+SELECT * FROM scores  group by cno HAVING degree = max(degree);
 #43、查询和“李军”同性别的所有同学的Sname.
 SELECT s1.sname FROM students s1 WHERE s1.ssex = (SELECT s2.ssex FROM students s2 WHERE s2.sname = '李军') and s1.sname!= '李军';
+  #改用自连接
+select s1.sname FROM  students s1 LEFT JOIN students s2 on s1.ssex = s2.ssex WHERE s2.sname = '李军';
 #44、查询和“李军”同性别并同班的同学Sname.
 SELECT s1.sname FROM students s1 WHERE s1.ssex = (SELECT s2.ssex FROM students s2 WHERE s2.sname = '李军') and s1.sname!= '李军'
                                        AND s1.class = (SELECT s2.class FROM students s2 WHERE s2.sname = '李军');
+  #改用自连接
+select s1.sname FROM  students s1 LEFT JOIN  students s2 on s1.ssex = s2.ssex and s1.class = s2.class WHERE s2.sname = '李军';
 #45、查询所有选修“计算机导论”课程的“男”同学的成绩表
 SELECT scores.* FROM scores LEFT JOIN students on scores.sno = students.sno LEFT JOIN courses on scores.cno = courses.cno WHERE students.ssex = '男' and courses.cname = '计算机导论';
